@@ -1,8 +1,48 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
+% 1. Hva slags dokument.
+\documentclass[12pt,norsk,a4paper]{article}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyvrb}
+% redefine \VerbatimInput
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+ %
+ frame=lines,  % top and bottom rule only
+ framesep=2em, % separation between frame and text
+ rulecolor=\color{Gray},
+ %
+ label=\fbox{\color{Black}Data fra fil},
+ labelposition=topline,
+ %
+ commandchars=\|\(\), % escape character and argument delimiters for
+                      % commands within the verbatim
+ commentchar=*        % comment character
+}
+\usepackage{hyperref}
+\usepackage[all]{hypcap}
 
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+\usepackage{apacite}
+\usepackage{mathtools}
+% For eget tittelblad: legg ,titlepage til rett etter a4paper
+% For tosidig: legg til ,twopage
+
+
+% 3. Norske tegn og norsk utseende
+
+% 3a. Tekstfiler med norske tegn kan lagres i utf-8 eller iso-latin-1
+% (iso-8859-1). På Ifi-maskinene er iso-8859-1/15 standard.
+\usepackage[utf8]{inputenc} % evt utf8 i stedet for latin1
+
+% 2. Om dokumentet - brukes blant annet til tittelen
 \title{SpaceMath}
-
 
 \author{
   Fredrik Sandvær\\
@@ -10,13 +50,140 @@
   Brage Staven\\
   Erlend Steinset\\
 }
+\date{\today}
 
-\date{September 2016}
+% 3b. For norsk orddeling og dato
+\usepackage[norsk]{babel}
+\usepackage[norsk]{isodate}
+
+% 3c. For norske tegn
+\usepackage[T1]{fontenc}
+
+% 3d. For parallelle avsnitt (fint i INF1080, men ikke så fint i vanlige artikler)
+\usepackage{parskip}
+
+% 3e. For å formattere URL-er.
+%\usepackage{url}
+
+% 4. Skrifttype og symboler
+%\usepackage[small,euler-digits]{eulervm}
+%\usepackage[bitstream-charter]{mathdesign}
+\usepackage{color}
+
+% 5. For litt mindre marger enn standard i LaTeX
+\usepackage{a4wide}
+\usepackage[top=2cm]{geometry}
+
+% 6. Figurer og bilder
+
+% 6a. For å bryte tekst rundt en figur
+%\usepackage{wrapfig}
+
+% 6b. For bilder - med denne pakken kan du legge inn bilder og
+% illustrasjoner slik:
+%                  \includegraphics[width=.5\textwidth]{bilde.pdf}
+\usepackage{graphicx}
+
+% 7. For grafer og slikt
+%\usepackage{tikz}
+%\usetikzlibrary{trees}
+% Det fins mange tikz-bibliotek, det er nesten ingen grenser for hva
+% du kan lage med dette. Se http://www.texample.net/tikz/
+
+%include the usecases package
+\usepackage{tikz}
+\usepackage{pgf-umlsd}
+\usepackage{listings}
+\definecolor{mylilas}{RGB}{170,55,241}
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    inputencoding=ansinew,% allows special characters (Norwegian) in the code
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{ForestGreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{blue}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+\usepgflibrary{arrows} % for pgf-umlsd
+\usepackage{verbatim}
+\usepackage{tabularx}
+\usepackage{tabulary}
+% 8. Egendefinerte kommandoer kan du legge inn slik:
+\newcommand{\tuple}[1]{\ensuremath{\langle #1\rangle}}
+\newcommand{\set}[1]{\ensuremath{\{#1\}}}
+\newcommand{\imp}{\ensuremath{\rightarrow}}
+\newcommand{\M}{\ensuremath{\mathcal{M}}}
+\newcommand{\AF}{edge from parent[draw=none]}
+\newcommand{\NODE}[1]{\{node \{\ensuremath{#1}\}\}}
+% http://en.wikibooks.org/wiki/LaTeX/Customizing_LaTeX#New_commands
+\usepackage{textcomp}
+
+\usepackage{amsmath}
+\usepackage{tocloft}
+
+\usepackage{xr}
+
+\newcommand{\listequationsname}{\Large{Formelliste}}
+\newlistof{myequations}{equ}{\listequationsname}
+\newcommand{\myequations}[1]{%
+\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+
+
 
 \begin{document}
 
 \maketitle
+% a. For å få bokstavnummerering på 'subsection's
+%\renewcommand{\thesubsection}{(\alph{subsection})}
+\vspace{20mm}
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=\textwidth]{img/beam.png}
+\end{figure}\bigskip
+\begin{center}
+\vspace{30mm}
+\end{center}
+\newpage
+\textbf{Revisjonshistorie}
+\begin{center}
+\small\begin{tabulary}{\textwidth}{|L|L|L|L|}
+    \hline
+    \textbf{Dato} & \textbf{Versjon} & \textbf{Beskrivelse} & \textbf{Forfatter} \\
+    \hline
+    13.03.2016 & 0.1 & Første versjon & Team 16 \\
+    \hline
+    03.04.2016 & 0.2 & Andre versjon & Team 16 \\
+    \hline
+\end{tabulary}
+\end{center}
+\newpage
+\tableofcontents
+\newpage
+% liste med figurer
+\listoffigures
+\newpage
+% Liste med formler
+\listofmyequations
+\newpage
 
+\input{tex/Numerikk/Numerikk}
+
+\newpage
+
+\bibliographystyle{apacite}
+\bibliography{bib/simple}
+
+\newpage
 \section{Introduction}
+\input{tex/Numerikk/vedlegg}
+
 
 \end{document}
